@@ -1,0 +1,17 @@
+{
+	"roles": [
+		{
+			"config_id": "some-roles",
+			"header": "Roles",
+			"message": "here are some roles to choose from",
+			"color": "#B00B69",
+			"max_values": null,
+			"options": [
+				{
+					"role_id": "",
+					"emoji": ""
+				}
+			]
+		}
+	]
+}

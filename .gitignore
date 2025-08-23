@@ -12,8 +12,10 @@
 
 # project stuff
 .build/*
+.config/*
+!.config/.env_example
 vendor/*
-composer.lock
+#composer.lock
 phpcs.xml
 phpdoc.xml
 phpmd.xml

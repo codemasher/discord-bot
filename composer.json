@@ -1,10 +1,10 @@
 {
 	"$schema": "https://getcomposer.org/schema.json",
-	"name": "chillerlan/php-library-template-nodocs",
-	"description": "A PHP Library template/boilerplate.",
+	"name": "codemasher/discord-bot",
+	"description": "A Discord bot.",
 	"license": "MIT",
 	"type": "library",
-	"keywords": ["boilerplate", "library-template"],
+	"keywords": ["discord", "bot"],
 	"authors": [
 		{
 			"name": "smiley",
@@ -13,7 +13,7 @@
 		},
 		{
 			"name": "Contributors",
-			"homepage":"https://github.com/chillerlan/php-library-template-nodocs/graphs/contributors"
+			"homepage":"https://github.com/codemasher/discord-bot/graphs/contributors"
 		}
 	],
 	"funding": [
@@ -22,35 +22,47 @@
 			"url": "https://ko-fi.com/codemasher"
 		}
 	],
-	"homepage": "https://github.com/chillerlan/php-library-template-nodocs",
+	"homepage": "https://github.com/codemasher/discord-bot",
 	"support": {
-		"issues": "https://github.com/chillerlan/php-library-template-nodocs/issues",
-		"source": "https://github.com/chillerlan/php-library-template-nodocs"
+		"issues": "https://github.com/codemasher/discord-bot/issues",
+		"source": "https://github.com/codemasher/discord-bot"
 	},
 	"minimum-stability": "stable",
 	"prefer-stable": true,
 	"require": {
-		"php": "^8.1"
+		"php": "^8.4",
+		"ext-json": "*",
+		"ext-mbstring": "*",
+		"ext-sodium": "*",
+		"ext-zlib": "*",
+		"chillerlan/php-dotenv": "^3.0.1",
+		"chillerlan/php-settings-container": "^3.2.1",
+		"chillerlan/php-standard-utilities": "^1.0.2",
+		"psr/log": "^2.0 || ^3.0",
+		"team-reflex/discord-php": "^10.18.51"
 	},
 	"require-dev": {
 		"phan/phan": "^5.5.0",
 		"phpmd/phpmd": "^2.15",
 		"phpstan/phpstan": "^2.1.22",
 		"phpstan/phpstan-deprecation-rules": "^2.0.3",
-		"phpunit/phpunit": "^10.5",
+		"phpunit/phpunit": "^12.3",
 		"slevomat/coding-standard": "^8.15",
 		"squizlabs/php_codesniffer": "^3.10"
 	},
 	"suggest": {
+		"chillerlan/php-httpinterface": "^6.0.0",
+		"chillerlan/php-oauth": "^1.0.2",
+		"ext-event": "https://pecl.php.net/package/event"
 	},
 	"autoload": {
 		"psr-4": {
-			"chillerlan\\LibraryTemplate\\": "src"
+			"codemasher\\DiscordBot\\": "src"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"chillerlan\\LibraryTemplateTest\\": "tests"
+			"codemasher\\DiscordBotTest\\": "tests"
 		}
 	},
 	"scripts": {
@@ -61,7 +73,7 @@
 		"phpunit": "@php vendor/bin/phpunit"
 	},
 	"config": {
-		"lock": false,
+		"lock": true,
 		"sort-packages": true,
 		"platform-check": true,
 		"allow-plugins": {
