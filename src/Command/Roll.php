@@ -52,7 +52,6 @@ class Roll extends CommandAbstract{
 
 	protected function execute(Interaction $interaction, Collection $params):void{
 		$sides  = ($interaction->data->options->offsetGet('sides')?->value ?? 20);
-		$amount = ($interaction->data->options->offsetGet('amount')?->value ?? 1);
 
 		$message = match(true){
 			$sides < 1   => sprintf('%s this shape is not available in your current dimension', $interaction->user),
@@ -60,14 +59,15 @@ class Roll extends CommandAbstract{
 			$sides === 2 => sprintf('%s this is not a fucking coin flip', $interaction->user),
 			$sides === 3 => sprintf('%s I\'m calling the geometry police', $interaction->user),
 			$sides > 100 => sprintf('%s this is a sphere', $interaction->user),
-			default      => $this->roll($interaction, $amount, $sides),
+			default      => $this->roll($interaction, $sides),
 		};
 
 		$interaction->respondWithMessage((new MessageBuilder)->setContent($message));
 	}
 
-	private function roll(Interaction $interaction, int $amount, int $sides):string{
-		$rolls = [];
+	private function roll(Interaction $interaction, int $sides):string{
+		$amount = ($interaction->data->options->offsetGet('amount')?->value ?? 1);
+		$rolls  = [];
 
 		for($i = 0; $i < $amount; $i++){
 			$rolls[] = random_int(1, $sides);
