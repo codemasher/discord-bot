@@ -165,9 +165,9 @@ final class Roles extends CommandAbstract{
 			}
 			/** @phan-suppress-next-line PhanTypeMismatchArgument */
 			$endpoint = Endpoint::bind(Endpoint::GUILD_MEMBER_ROLE, $interaction->guild->id, $interaction->user->id, $role);
+			$added[]  = $role;
 
 			$this->http->put($endpoint);
-			$added[] = $role;
 		}
 
 		$this->logger->debug('added roles', $added);
@@ -184,10 +184,10 @@ final class Roles extends CommandAbstract{
 				continue;
 			}
 			/** @phan-suppress-next-line PhanTypeMismatchArgument */
-			$endpoint = Endpoint::bind(Endpoint::GUILD_MEMBER_ROLE, $interaction->guild->id, $interaction->user->id, $role);
+			$endpoint  = Endpoint::bind(Endpoint::GUILD_MEMBER_ROLE, $interaction->guild->id, $interaction->user->id, $role);
+			$removed[] = $role;
 
 			$this->http->delete($endpoint);
-			$removed[] = $role;
 		}
 
 		$this->logger->debug('removed roles', $removed);

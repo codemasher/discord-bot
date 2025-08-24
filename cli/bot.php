@@ -23,7 +23,8 @@ $options = new DiscordBotOptions;
 
 $options->botToken               = $dotEnv->get('DISCORD_BOT_TOKEN');
 $options->logLevel               = LogLevel::DEBUG;
-$options->registerGlobalCommands = false;
+#$options->registerGlobalCommands = true;
+#$options->deleteCommandOnUpdate  = true;
 
 $dc = new DiscordBot($options);
 $dc->run();
