@@ -95,7 +95,7 @@ final class GuildConfig{
 			}
 
 			foreach($cfg['options'] as $role){
-				if(!isset($role['role_id'], $role['emoji'])){
+				if(!isset($role['role_id']/*, $role['emoji']*/)){
 					return false;
 				}
 
