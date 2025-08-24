@@ -3,7 +3,7 @@
 	"name": "codemasher/discord-bot",
 	"description": "A Discord bot.",
 	"license": "MIT",
-	"type": "library",
+	"type": "application",
 	"keywords": ["discord", "bot"],
 	"authors": [
 		{
