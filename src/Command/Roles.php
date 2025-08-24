@@ -110,6 +110,7 @@ final class Roles extends CommandAbstract{
 
 	private function selectResponse(Interaction $interaction, Collection $options, array $config):MessageBuilder{
 		$allowedRoles = array_column($config['options'], 'role_id');
+		$currentRoles = array_map(fn(Role $r):string => $r->id, $interaction->member->roles->toArray());
 		$added        = [];
 		// check & add the selected roles
 		foreach($options as $option){
@@ -122,20 +123,21 @@ final class Roles extends CommandAbstract{
 			$added[] = $role_id;
 		}
 
-		$removed = array_diff($allowedRoles, $added);
-
-		$this
-			->addRoles($interaction, $added)
-			->removeRoles($interaction, $removed)
-		;
-
-		return $this->selectResponseMessage($config, $added, $removed);
+		return $this->selectResponseMessage(
+			$config,
+			$this->addRoles($interaction, $added, $currentRoles),
+			$this->removeRoles($interaction, array_diff($allowedRoles, $added), $currentRoles),
+		);
 	}
 
 	private function selectResponseMessage(array $config, array $added, array $removed):MessageBuilder{
 		// compose the response message
 		$display = fn(string $r):string => sprintf('<@&%s>', $r);
 		$message = sprintf('### %s changes', $config['header']);
+
+		if($added === [] && $removed === []){
+			$message .= "\n- no role changes";
+		}
 
 		if($added !== []){
 			$message .= "\n- added: ".implode(', ', array_map($display, $added));
@@ -153,24 +155,44 @@ final class Roles extends CommandAbstract{
 		return (new MessageBuilder)->addComponent($container);
 	}
 
-	private function addRoles(Interaction $interaction, array $roles):self{
-		return $this->toggleRoles('put', $roles, $interaction);
-	}
+	private function addRoles(Interaction $interaction, array $rolesToAdd, array $currentRoles):array{
+		$added = [];
 
-	private function removeRoles(Interaction $interaction, array $roles):self{
-		return $this->toggleRoles('delete', $roles, $interaction);
-	}
-
-	private function toggleRoles(string $method, array $roles, Interaction $interaction):self{
-
-		foreach($roles as $role){
+		foreach($rolesToAdd as $role){
+			// skip existing role
+			if(in_array($role, $currentRoles, true)){
+				continue;
+			}
 			/** @phan-suppress-next-line PhanTypeMismatchArgument */
 			$endpoint = Endpoint::bind(Endpoint::GUILD_MEMBER_ROLE, $interaction->guild->id, $interaction->user->id, $role);
 
-			$this->http->{$method}($endpoint);
+			$this->http->put($endpoint);
+			$added[] = $role;
 		}
 
-		return $this;
+		$this->logger->debug('added roles', $added);
+
+		return $added;
+	}
+
+	private function removeRoles(Interaction $interaction, array $rolesToRemove, array $currentRoles):array{
+		$removed = [];
+
+		foreach($rolesToRemove as $role){
+			// skip non-existing role
+			if(!in_array($role, $currentRoles, true)){
+				continue;
+			}
+			/** @phan-suppress-next-line PhanTypeMismatchArgument */
+			$endpoint = Endpoint::bind(Endpoint::GUILD_MEMBER_ROLE, $interaction->guild->id, $interaction->user->id, $role);
+
+			$this->http->delete($endpoint);
+			$removed[] = $role;
+		}
+
+		$this->logger->debug('removed roles', $removed);
+
+		return $removed;
 	}
 
 }
