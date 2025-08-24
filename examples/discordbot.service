@@ -1,0 +1,18 @@
+[Unit]
+Description=Discord Bot
+After=multi-user.target
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/php -f /home/discordbot/bot/cli/bot.php
+User=discordbot
+Group=discordbot
+Type=idle
+Restart=always
+RestartSec=15
+RestartPreventExitStatus=0
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target
