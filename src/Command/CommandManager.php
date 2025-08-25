@@ -12,7 +12,6 @@ declare(strict_types=1);
 namespace codemasher\DiscordBot\Command;
 
 use chillerlan\Settings\SettingsContainerInterface;
-use chillerlan\Utilities\File;
 use codemasher\DiscordBot\DiscordBotOptions;
 use codemasher\DiscordBot\GuildConfigManager;
 use DirectoryIterator;
@@ -56,11 +55,6 @@ final class CommandManager{
 
 		return $this;
 	}
-
-#	public function deleteAll():self{
-#
-#		return $this;
-#	}
 
 	private function registerGlobalCommands(GlobalCommandRepository $repository):void{
 		// a handy $id => $name map of existing commands
