@@ -140,11 +140,11 @@ final class Roles extends CommandAbstract{
 		}
 
 		if($added !== []){
-			$message .= "\n- added: ".implode(', ', array_map($display, $added));
+			$message .= sprintf("\n- added: %s", implode(', ', array_map($display, $added)));
 		}
 
 		if($removed !== []){
-			$message .= "\n- removed: ".implode(', ', array_map($display, $removed));
+			$message .= sprintf("\n- removed: %s", implode(', ', array_map($display, $removed)));
 		}
 
 		$container = (new Container)

@@ -67,7 +67,7 @@ final class CommandManager{
 		$existingCommandList = array_map(fn(Command $c):string => $c->name, $repository->toArray());
 
 		/** @var \ReflectionClass $reflection */
-		foreach($this->fetchCommands(__DIR__, CommandInterface::class) as $reflection){
+		foreach($this->fetchCommands() as $reflection){
 			/** @var \codemasher\DiscordBot\Command\CommandInterface $command */
 			$command         = $reflection->newInstanceArgs([$this->guildConfig, $this->discord, $this->logger]);
 			/** @var \Discord\Parts\Interactions\Command\Command $existingCommand */
@@ -103,10 +103,10 @@ final class CommandManager{
 		}
 	}
 
-	private function fetchCommands(string $dir, string $interface):array{
+	private function fetchCommands():array{
 		$classes = [];
 		/** @var \SplFileInfo $file */
-		foreach(new DirectoryIterator(File::realpath($dir)) as $file){
+		foreach(new DirectoryIterator(__DIR__) as $file){
 
 			if($file->getExtension() !== 'php'){
 				continue;
@@ -115,7 +115,7 @@ final class CommandManager{
 			$classname  = sprintf('%s\\%s', __NAMESPACE__, substr($file->getFilename(), 0, -4));
 			$reflection = new ReflectionClass($classname);
 
-			if(!$reflection->implementsInterface($interface) || $reflection->isAbstract()){
+			if(!$reflection->implementsInterface(CommandInterface::class) || $reflection->isAbstract()){
 				continue;
 			}
 
