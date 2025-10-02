@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace codemasher\DiscordBot\Command;
 
 use codemasher\DiscordBot\GuildConfigManager;
+use codemasher\DiscordBot\MemoryCache;
 use Discord\Builders\CommandBuilder;
 use Discord\Discord;
 use Discord\Helpers\Collection;
@@ -28,6 +29,7 @@ abstract class CommandAbstract implements CommandInterface{
 
 	public function __construct(
 		protected readonly GuildConfigManager $guildConfig,
+		protected readonly MemoryCache        $memoryCache,
 		protected readonly Discord            $discord,
 		protected readonly LoggerInterface    $logger,
 	){

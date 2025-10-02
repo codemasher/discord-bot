@@ -14,6 +14,7 @@ namespace codemasher\DiscordBot\Command;
 use chillerlan\Settings\SettingsContainerInterface;
 use codemasher\DiscordBot\DiscordBotOptions;
 use codemasher\DiscordBot\GuildConfigManager;
+use codemasher\DiscordBot\MemoryCache;
 use DirectoryIterator;
 use Discord\Discord;
 use Discord\Parts\Interactions\Command\Command;
@@ -34,6 +35,7 @@ final class CommandManager{
 	public function __construct(
 		private readonly SettingsContainerInterface|DiscordBotOptions $options,
 		private readonly GuildConfigManager                           $guildConfig,
+		private readonly MemoryCache                                  $memoryCache,
 		private readonly Discord                                      $discord,
 		private readonly LoggerInterface                              $logger,
 	){
@@ -63,7 +65,7 @@ final class CommandManager{
 		/** @var \ReflectionClass $reflection */
 		foreach($this->fetchCommands() as $reflection){
 			/** @var \codemasher\DiscordBot\Command\CommandInterface $command */
-			$command         = $reflection->newInstanceArgs([$this->guildConfig, $this->discord, $this->logger]);
+			$command = $reflection->newInstanceArgs([$this->guildConfig, $this->memoryCache, $this->discord, $this->logger]);
 			/** @var \Discord\Parts\Interactions\Command\Command $existingCommand */
 			$existingCommand = $repository->get('name', $command::NAME);
 

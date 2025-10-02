@@ -29,12 +29,14 @@ class DiscordBot{
 
 	protected CommandManager           $commandManager;
 	protected GuildConfigManager       $guildConfig;
+	protected MemoryCache              $memoryCache;
 
 	public function __construct(
 		protected readonly SettingsContainerInterface|DiscordBotOptions $options,
 	){
-		$this->logger  = $this->initLogger();
-		$this->discord = $this->initDiscord();
+		$this->logger      = $this->initLogger();
+		$this->discord     = $this->initDiscord();
+		$this->memoryCache = new MemoryCache;
 	}
 
 	protected function initLogger():LoggerInterface{
@@ -65,7 +67,9 @@ class DiscordBot{
 	}
 
 	protected function initCommandManager(GuildConfigManager $guildConfig, Discord $discord):static{
-		$this->commandManager = new CommandManager($this->options, $guildConfig, $discord, $this->logger)->register();
+		$this->commandManager = new CommandManager($this->options, $guildConfig, $this->memoryCache, $discord, $this->logger)
+			->register()
+		;
 
 		return $this;
 	}
@@ -79,7 +83,7 @@ class DiscordBot{
 				->initCommandManager($this->guildConfig, $discord)
 			;
 
-#			$dc->on(Event::MESSAGE_CREATE, function(Message $message):void{});
+#			$discord->on(Event::MESSAGE_CREATE, function(Message $message):void{});
 
 		});
 
