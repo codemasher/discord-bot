@@ -39,7 +39,7 @@
 		"chillerlan/php-settings-container": "^3.2.1",
 		"chillerlan/php-standard-utilities": "^1.0.2",
 		"psr/log": "^2.0 || ^3.0",
-		"team-reflex/discord-php": "^10.18.51"
+		"team-reflex/discord-php": "^v10.36.6"
 	},
 	"require-dev": {
 		"phan/phan": "^5.5.0",

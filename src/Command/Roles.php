@@ -20,7 +20,7 @@ use Discord\Builders\MessageBuilder;
 use Discord\Helpers\Collection;
 use Discord\Http\Endpoint;
 use Discord\Parts\Guild\Role;
-use Discord\Parts\Interactions\Interaction;
+use Discord\Parts\Interactions\ApplicationCommand;
 use Discord\Repository\Guild\RoleRepository;
 use function array_column;
 use function array_diff;
@@ -35,7 +35,7 @@ final class Roles extends CommandAbstract{
 	public const string NAME        = 'roles';
 	public const string DESCRIPTION = 'Manage self-assignable user roles';
 
-	protected function execute(Interaction $interaction, Collection $params):void{
+	protected function execute(ApplicationCommand $interaction, Collection $params):void{
 
 		if($interaction->guild === null){
 			$message = (new MessageBuilder)->setContent('Error: this command cannot be used in direct messages.');
@@ -101,14 +101,14 @@ final class Roles extends CommandAbstract{
 			$select->addOption(new Option('@'.$existingRoles[$id], $roleOption['role_id']));
 		}
 
-		$select->setListener(function(Interaction $interaction, Collection $options) use ($config):void{
+		$select->setListener(function(ApplicationCommand $interaction, Collection $options) use ($config):void{
 			$interaction->respondWithMessage($this->selectResponse($interaction, $options, $config), true);
 		}, $this->discord);
 
 		return $select;
 	}
 
-	private function selectResponse(Interaction $interaction, Collection $options, array $config):MessageBuilder{
+	private function selectResponse(ApplicationCommand $interaction, Collection $options, array $config):MessageBuilder{
 		$allowedRoles = array_column($config['options'], 'role_id');
 		$currentRoles = array_map(fn(Role $r):string => $r->id, $interaction->member->roles->toArray());
 		$added        = [];
@@ -155,7 +155,7 @@ final class Roles extends CommandAbstract{
 		return (new MessageBuilder)->addComponent($container);
 	}
 
-	private function addRoles(Interaction $interaction, array $rolesToAdd, array $currentRoles):array{
+	private function addRoles(ApplicationCommand $interaction, array $rolesToAdd, array $currentRoles):array{
 		$added = [];
 
 		foreach($rolesToAdd as $role){
@@ -175,7 +175,7 @@ final class Roles extends CommandAbstract{
 		return $added;
 	}
 
-	private function removeRoles(Interaction $interaction, array $rolesToRemove, array $currentRoles):array{
+	private function removeRoles(ApplicationCommand $interaction, array $rolesToRemove, array $currentRoles):array{
 		$removed = [];
 
 		foreach($rolesToRemove as $role){

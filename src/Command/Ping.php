@@ -13,14 +13,14 @@ namespace codemasher\DiscordBot\Command;
 
 use Discord\Builders\MessageBuilder;
 use Discord\Helpers\Collection;
-use Discord\Parts\Interactions\Interaction;
+use Discord\Parts\Interactions\ApplicationCommand;
 
 final class Ping extends CommandAbstract{
 
 	public const string NAME        = 'ping';
 	public const string DESCRIPTION = 'pong';
 
-	protected function execute(Interaction $interaction, Collection $params):void{
+	protected function execute(ApplicationCommand $interaction, Collection $params):void{
 		$guild = $interaction->guild;
 
 		if($guild !== null){

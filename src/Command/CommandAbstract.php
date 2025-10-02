@@ -18,7 +18,7 @@ use Discord\Helpers\Collection;
 use Discord\Helpers\RegisteredCommand;
 use Discord\Http\Http;
 use Discord\Parts\Interactions\Command\Command;
-use Discord\Parts\Interactions\Interaction;
+use Discord\Parts\Interactions\ApplicationCommand;
 use Psr\Log\LoggerInterface;
 
 abstract class CommandAbstract implements CommandInterface{
@@ -34,7 +34,7 @@ abstract class CommandAbstract implements CommandInterface{
 		$this->http = $this->discord->getHttpClient();
 	}
 
-	abstract protected function execute(Interaction $interaction, Collection $params):void;
+	abstract protected function execute(ApplicationCommand $interaction, Collection $params):void;
 
 	protected function build():array{
 		return (new CommandBuilder)

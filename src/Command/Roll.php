@@ -16,7 +16,7 @@ use Discord\Builders\MessageBuilder;
 use Discord\Helpers\Collection;
 use Discord\Parts\Interactions\Command\Command;
 use Discord\Parts\Interactions\Command\Option;
-use Discord\Parts\Interactions\Interaction;
+use Discord\Parts\Interactions\ApplicationCommand;
 use function array_sum;
 use function implode;
 use function random_int;
@@ -50,7 +50,7 @@ class Roll extends CommandAbstract{
 			->toArray();
 	}
 
-	protected function execute(Interaction $interaction, Collection $params):void{
+	protected function execute(ApplicationCommand $interaction, Collection $params):void{
 		$sides  = ($interaction->data->options->offsetGet('sides')?->value ?? 20);
 
 		$message = match(true){
@@ -65,7 +65,7 @@ class Roll extends CommandAbstract{
 		$interaction->respondWithMessage((new MessageBuilder)->setContent($message));
 	}
 
-	private function roll(Interaction $interaction, int $sides):string{
+	private function roll(ApplicationCommand $interaction, int $sides):string{
 		$amount = ($interaction->data->options->offsetGet('amount')?->value ?? 1);
 		$rolls  = [];
 
