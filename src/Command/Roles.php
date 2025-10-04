@@ -37,6 +37,12 @@ final class Roles extends CommandAbstract{
 
 	protected function execute(ApplicationCommand $interaction, Collection $params):void{
 
+		if($interaction->user === null || $interaction->user->bot){
+			$interaction->respondWithMessage((new MessageBuilder)->setContent('Error: invalid user.'), true);
+
+			return;
+		}
+
 		if($interaction->guild === null){
 			$message = (new MessageBuilder)->setContent('Error: this command cannot be used in direct messages.');
 
