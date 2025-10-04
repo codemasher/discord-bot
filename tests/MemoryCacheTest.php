@@ -49,6 +49,15 @@ class MemoryCacheTest extends TestCase{
 	}
 
 	#[Test]
+	public function has():void{
+		$this::assertFalse($this->memoryCache->has('foo'));
+
+		$this->memoryCache->set('foo', 'bar');
+
+		$this::assertTrue($this->memoryCache->has('foo'));
+	}
+
+	#[Test]
 	public function emptyKeyException():void{
 		$this->expectException(InvalidArgumentException::class);
 		$this->expectExceptionMessage('invalid cache key');

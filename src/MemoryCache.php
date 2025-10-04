@@ -39,13 +39,12 @@ final class MemoryCache{
 	 * if there's no value stored, $default will be returned.
 	 */
 	public function get(string $key, mixed $default = null):mixed{
-		$key = $this->key($key);
 
-		if(!array_key_exists($key, $this->cache)){
+		if(!$this->has($key)){
 			return $default;
 		}
 
-		return $this->cache[$key];
+		return $this->cache[$this->key($key)];
 	}
 
 	/**
@@ -57,6 +56,16 @@ final class MemoryCache{
 		return $this;
 	}
 
+	/**
+	 * Checks whether an element with the given key exists
+	 */
+	public function has(string $key):bool{
+		return array_key_exists($this->key($key), $this->cache);
+	}
+
+	/**
+	 * Trims the given key and checks whether it's empty, returns the trimmed key
+	 */
 	private function key(string $key):string{
 		$key = trim($key);
 
