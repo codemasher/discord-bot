@@ -9,9 +9,10 @@
  */
 declare(strict_types=1);
 
-namespace codemasher\DiscordBot;
+namespace codemasher\DiscordBot\Support;
 
 use chillerlan\Settings\SettingsContainerInterface;
+use codemasher\DiscordBot\DiscordBotOptions;
 use Discord\Discord;
 use Psr\Log\LoggerInterface;
 use function array_key_exists;
@@ -19,7 +20,7 @@ use function sprintf;
 
 final class GuildConfigManager{
 
-	/** @var \codemasher\DiscordBot\GuildConfig[] */
+	/** @var \codemasher\DiscordBot\Support\GuildConfig[] */
 	private array $config = [];
 
 	public function __construct(

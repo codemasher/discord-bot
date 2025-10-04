@@ -13,8 +13,8 @@ namespace codemasher\DiscordBot\Command;
 
 use chillerlan\Settings\SettingsContainerInterface;
 use codemasher\DiscordBot\DiscordBotOptions;
-use codemasher\DiscordBot\GuildConfigManager;
-use codemasher\DiscordBot\MemoryCache;
+use codemasher\DiscordBot\Support\GuildConfigManager;
+use codemasher\DiscordBot\Support\MemoryCache;
 use DirectoryIterator;
 use Discord\Discord;
 use Discord\Parts\Interactions\Command\Command;

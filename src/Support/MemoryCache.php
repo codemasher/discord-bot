@@ -9,7 +9,7 @@
  */
 declare(strict_types=1);
 
-namespace codemasher\DiscordBot;
+namespace codemasher\DiscordBot\Support;
 
 use InvalidArgumentException;
 use function array_key_exists;

@@ -13,6 +13,8 @@ namespace codemasher\DiscordBot;
 
 use chillerlan\Settings\SettingsContainerInterface;
 use codemasher\DiscordBot\Command\CommandManager;
+use codemasher\DiscordBot\Support\GuildConfigManager;
+use codemasher\DiscordBot\Support\MemoryCache;
 use Discord\Discord;
 use Discord\WebSockets\Intents;
 use Monolog\Formatter\LineFormatter;

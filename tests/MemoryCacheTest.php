@@ -11,7 +11,7 @@ declare(strict_types=1);
 
 namespace codemasher\DiscordBotTest;
 
-use codemasher\DiscordBot\MemoryCache;
+use codemasher\DiscordBot\Support\MemoryCache;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;

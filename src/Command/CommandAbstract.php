@@ -11,15 +11,15 @@ declare(strict_types=1);
 
 namespace codemasher\DiscordBot\Command;
 
-use codemasher\DiscordBot\GuildConfigManager;
-use codemasher\DiscordBot\MemoryCache;
+use codemasher\DiscordBot\Support\GuildConfigManager;
+use codemasher\DiscordBot\Support\MemoryCache;
 use Discord\Builders\CommandBuilder;
 use Discord\Discord;
 use Discord\Helpers\Collection;
 use Discord\Helpers\RegisteredCommand;
 use Discord\Http\Http;
-use Discord\Parts\Interactions\Command\Command;
 use Discord\Parts\Interactions\ApplicationCommand;
+use Discord\Parts\Interactions\Command\Command;
 use Psr\Log\LoggerInterface;
 
 abstract class CommandAbstract implements CommandInterface{

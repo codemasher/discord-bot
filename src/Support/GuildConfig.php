@@ -9,10 +9,11 @@
  */
 declare(strict_types=1);
 
-namespace codemasher\DiscordBot;
+namespace codemasher\DiscordBot\Support;
 
 use chillerlan\Settings\SettingsContainerInterface;
 use chillerlan\Utilities\File;
+use codemasher\DiscordBot\DiscordBotOptions;
 use Discord\Parts\Guild\Guild;
 use function array_key_exists;
 use function is_array;
