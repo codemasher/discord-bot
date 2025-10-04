@@ -62,9 +62,13 @@ abstract class CommandAbstract implements CommandInterface{
 
 	public function listen():static{
 		// Respond the command with an interaction message
-		$this->registeredCommand = $this->discord->listenCommand($this::NAME, $this->execute(...));
+		$this->registeredCommand = $this->discord->listenCommand($this::NAME, $this->execute(...), $this->autocomplete(...));
 
 		return $this;
+	}
+
+	protected function autocomplete(ApplicationCommand $interaction):void{
+		// noop
 	}
 
 }
