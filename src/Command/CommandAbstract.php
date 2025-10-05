@@ -19,6 +19,7 @@ use Discord\Helpers\Collection;
 use Discord\Helpers\RegisteredCommand;
 use Discord\Http\Http;
 use Discord\Parts\Interactions\ApplicationCommand;
+use Discord\Parts\Interactions\ApplicationCommandAutocomplete;
 use Discord\Parts\Interactions\Command\Command;
 use Psr\Log\LoggerInterface;
 
@@ -67,7 +68,7 @@ abstract class CommandAbstract implements CommandInterface{
 		return $this;
 	}
 
-	protected function autocomplete(ApplicationCommand $interaction):array|null{
+	protected function autocomplete(ApplicationCommandAutocomplete $interaction):array|null{
 		// noop
 		return null;
 	}
