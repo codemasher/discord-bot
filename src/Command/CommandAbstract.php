@@ -67,8 +67,9 @@ abstract class CommandAbstract implements CommandInterface{
 		return $this;
 	}
 
-	protected function autocomplete(ApplicationCommand $interaction):void{
+	protected function autocomplete(ApplicationCommand $interaction):array|null{
 		// noop
+		return null;
 	}
 
 }
