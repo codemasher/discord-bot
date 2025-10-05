@@ -25,8 +25,8 @@ $dc = new Discord([
 	'intents' => (Intents::getDefaultIntents() | Intents::MESSAGE_CONTENT),
 ]);
 
-$dc->on('ready', function(Discord $discord):void{
-	echo 'Bot is ready!', PHP_EOL;
+$dc->on('init', function(Discord $discord):void{
+	echo "Bot is ready!\n";
 
 	// Listen for messages.
 	// Note: MESSAGE_CONTENT intent must be enabled to get the content if the bot is not mentioned/DMed.
@@ -40,8 +40,8 @@ $dc->on('ready', function(Discord $discord):void{
 		}
 
 		// If message is "ping"
-		if($message->content === 'ping'){
-			$message->reply('');
+		if(strtolower($message->content) === 'ping'){
+			$message->reply('Pong!');
 		}
 
 	});
