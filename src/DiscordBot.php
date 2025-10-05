@@ -85,8 +85,6 @@ class DiscordBot{
 				->initCommandManager($this->guildConfig, $discord)
 			;
 
-#			$discord->on(Event::MESSAGE_CREATE, function(Message $message):void{});
-
 		});
 
 		$this->discord->run();
