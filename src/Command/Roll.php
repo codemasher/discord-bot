@@ -19,7 +19,6 @@ use Discord\Parts\Interactions\Command\Choice;
 use Discord\Parts\Interactions\Command\Command;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\ApplicationCommand;
-use Discord\Parts\Interactions\Request\Option as RequestOption;
 use function array_sum;
 use function implode;
 use function random_int;
@@ -69,7 +68,7 @@ class Roll extends CommandAbstract{
 		$interaction->respondWithMessage((new MessageBuilder)->setContent($message));
 	}
 
-	protected function autocomplete(ApplicationCommandAutocomplete $interaction, RequestOption $option):array|null{
+	protected function autocomplete(ApplicationCommandAutocomplete $interaction):array|null{
 		/** @see \Discord\Parts\Interactions\Request\Option */
 		if($interaction->data->options->offsetGet('sides')->focused){
 			$dataset = [4, 6, 8, 10, 12, 20];
