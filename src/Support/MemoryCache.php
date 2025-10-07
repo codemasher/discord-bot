@@ -18,7 +18,7 @@ use function trim;
 /**
  * A very rudimentary intentionally non-persistent cache class
  *
- * No PSR-3, no Promises, no nothing - just plain old "you get what you asked for"
+ * No PSR-16, no Promises, no nothing - just plain old "you get what you asked for"
  */
 final class MemoryCache{
 
