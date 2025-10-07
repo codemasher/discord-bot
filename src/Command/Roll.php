@@ -14,9 +14,12 @@ namespace codemasher\DiscordBot\Command;
 use Discord\Builders\CommandBuilder;
 use Discord\Builders\MessageBuilder;
 use Discord\Helpers\Collection;
+use Discord\Parts\Interactions\ApplicationCommandAutocomplete;
+use Discord\Parts\Interactions\Command\Choice;
 use Discord\Parts\Interactions\Command\Command;
 use Discord\Parts\Interactions\Command\Option;
 use Discord\Parts\Interactions\ApplicationCommand;
+use Discord\Parts\Interactions\Request\Option as RequestOption;
 use function array_sum;
 use function implode;
 use function random_int;
@@ -32,7 +35,8 @@ class Roll extends CommandAbstract{
 		$sides = new Option($this->discord)
 			->setName('sides')
 			->setDescription('sides on the die')
-			->setType(Option::INTEGER);
+			->setType(Option::INTEGER)
+			->setAutoComplete(true);
 
 		$amount = new Option($this->discord)
 			->setName('amount')
@@ -51,7 +55,7 @@ class Roll extends CommandAbstract{
 	}
 
 	protected function execute(ApplicationCommand $interaction, Collection $params):void{
-		$sides  = ($interaction->data->options->offsetGet('sides')?->value ?? 20);
+		$sides = ($interaction->data->options->offsetGet('sides')?->value ?? 20);
 
 		$message = match(true){
 			$sides < 1   => sprintf('%s this shape is not available in your current dimension', $interaction->user),
@@ -63,6 +67,22 @@ class Roll extends CommandAbstract{
 		};
 
 		$interaction->respondWithMessage((new MessageBuilder)->setContent($message));
+	}
+
+	protected function autocomplete(ApplicationCommandAutocomplete $interaction, RequestOption $option):array|null{
+		/** @see \Discord\Parts\Interactions\Request\Option */
+		if($interaction->data->options->offsetGet('sides')->focused){
+			$dataset = [4, 6, 8, 10, 12, 20];
+			$choices = [];
+
+			foreach($dataset as $sides){
+				$choices[] = new Choice($this->discord, ['name' => sprintf('%s-sided', $sides), 'value' => $sides]);
+			}
+
+			return $choices;
+		}
+
+		return null;
 	}
 
 	private function roll(ApplicationCommand $interaction, int $sides):string{
